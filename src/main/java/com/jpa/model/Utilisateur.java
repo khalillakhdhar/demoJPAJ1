@@ -1,9 +1,13 @@
 package com.jpa.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity // créer une table dans la BD
 public class Utilisateur {
@@ -12,9 +16,15 @@ public class Utilisateur {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	// auto incrémentation (facultatif)
 	private long id;
+	@Column(nullable = false)
 	private String nom,prenom;
+	@Column(unique = true,length = 60)
+	@Email
 	private String Email;
+	@NotBlank
+	// interdire les chaine vide / espaces
 	private String password;
+	@Min(value = 12)
 	private int age;
 	public long getId() {
 		return id;
